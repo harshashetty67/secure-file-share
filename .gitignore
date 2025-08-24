@@ -1,0 +1,19 @@
+# Node
+node_modules/
+dist/
+build/
+
+# Env & local
+.env
+*.local
+apps/*/.env
+apps/*/.env.local
+
+# Prisma
+apps/api/prisma/dev.db
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { validate } from '../middlewares/validate';
 import { rateLimitByIp } from '../middlewares/rateLimit';
-import { MagicLinkInput, magicLinkSchema } from '../validators/auth.schema';
+import { magicLinkSchema } from '../validators/auth.schema';
 import { sendMagicLinkController } from '../controllers/auth.controller';
 
 const router = Router();

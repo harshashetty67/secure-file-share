@@ -10,16 +10,12 @@ const EnvSchema = z.object({
 
   // Supabase project details
   SUPABASE_URL: z.string().url(),
+  SUPABASE_ANON_KEY: z.string().min(10),
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(10),
-  SUPABASE_JWKS_URL: z.string().url(), // used later to verify JWTs
-
   // Where the magic link should redirect to
-  SITE_URL: z.string().url(),           // e.g. http://localhost:5173
+  SITE_URL: z.string().url(),
   AUTH_REDIRECT_PATH: z.string().default("/auth/callback"),
 });
 
-// Parse and validate process.env at startup
 export const config = EnvSchema.parse(process.env);
-
-// Helpful constants
 export const DEFAULT_EMAIL_REDIRECT = `${config.SITE_URL}${config.AUTH_REDIRECT_PATH}`;

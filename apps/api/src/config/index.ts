@@ -3,6 +3,7 @@ import 'dotenv/config';
 
 // Define the shape of your required environment variables
 const EnvSchema = z.object({
+  // Server port
   PORT: z.coerce.number().default(8080),
 
   // CORS
@@ -12,9 +13,16 @@ const EnvSchema = z.object({
   SUPABASE_URL: z.string().url(),
   SUPABASE_ANON_KEY: z.string().min(10),
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(10),
+
   // Where the magic link should redirect to
   SITE_URL: z.string().url(),
   AUTH_REDIRECT_PATH: z.string().default("/auth/callback"),
+
+  // File storage schema
+  MAX_UPLOAD_MB: z.coerce.number().default(2),
+  SIGNED_URL_TTL_SECONDS: z.coerce.number().default(120),
+  STORAGE_BUCKET: z.string().min(1).default('files'),
+  SHARE_DEFAULT_TTL_MIN: z.coerce.number().default(2880)
 });
 
 export const config = EnvSchema.parse(process.env);

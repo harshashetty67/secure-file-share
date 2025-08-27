@@ -55,3 +55,14 @@ export async function listUserObjects(userId: string, { limit, offset }:{limit:n
   
   return { items, hasMore };
 }
+
+// Create a short-lived signed GET URL for a stored object.
+export async function getSignedGetUrl(objectKey: string, ttlSeconds = config.SIGNED_DOWNLOAD_TTL_SECONDS) {
+  const { data, error } = await supabase.storage.from(config.STORAGE_BUCKET).createSignedUrl(objectKey, ttlSeconds);
+
+  if (error) {
+    throw error;
+  }
+
+  return data.signedUrl;
+}

@@ -7,6 +7,7 @@ import getMeRouter from './routes/me.routes';
 import uploadFileRouter from './routes/uploadFile.routes';
 import listFilesRouter from './routes/files.routes';
 import sharesRouter from './routes/shares.routes';
+import publicUrlRouter from './routes/publiUrl.routes';
 
 export const app = express();
 
@@ -24,3 +25,4 @@ app.use('/uploadFiles', uploadFileRouter);
 app.use('/files', listFilesRouter);
 
 app.use('/shares', sharesRouter);
+app.use('/publicUrl', publicUrlRouter);

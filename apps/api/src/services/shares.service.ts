@@ -24,3 +24,29 @@ export async function insertShare(row: {
 
     return data;
 }
+
+export async function getShare(id: string) {
+  const { data, error } = await supabase.from('shares').select('*').eq('id', id).single();
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+}
+
+/**
+ * v1 best-effort increment; fine for low traffic.
+ * Later you can switch to a Postgres RPC that does `download_count = download_count + 1` atomically.
+ */
+export async function incrementDownloadCount(id: string) {
+  const { data: current, error: erroMsg } = await supabase.from('shares').select('download_count').eq('id', id).single();
+  if (erroMsg) {
+    throw erroMsg;
+  }
+
+  const { error: erroMsg2 } = await supabase.from('shares').update({ download_count: (current?.download_count ?? 0) + 1 }).eq('id', id);
+  if (erroMsg2) {
+    throw erroMsg2;
+  }
+}

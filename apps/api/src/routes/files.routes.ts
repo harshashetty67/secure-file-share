@@ -1,10 +1,12 @@
 import { Router } from "express";  
-import { config } from "../config";
+import { validate } from '../middlewares/validate';
 import { authMiddleware } from "../middlewares/auth";
-import { listFilesController } from "../controllers/files.controller";
+import { deleteFileController, listFilesController } from "../controllers/files.controller";
+import { DeleteFileSchema } from "../validators/files.schema";
 
-const listFilesRouter = Router();
+const filesRouter = Router();
 
-listFilesRouter.get("/", authMiddleware, listFilesController);
+filesRouter.get("/", authMiddleware, listFilesController);
+filesRouter.delete('/', authMiddleware, validate(DeleteFileSchema), deleteFileController);
 
-export default listFilesRouter;
+export default filesRouter;

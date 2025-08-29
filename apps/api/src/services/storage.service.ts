@@ -66,3 +66,22 @@ export async function getSignedGetUrl(objectKey: string, ttlSeconds = config.SIG
 
   return data.signedUrl;
 }
+
+/** Best-effort existence check (optional): try to sign for 1s—fails if object missing. */
+export async function objectExists(objectKey: string): Promise<boolean> {
+  const { data, error } = await supabase
+    .storage
+    .from(config.STORAGE_BUCKET)
+    .createSignedUrl(objectKey, 1); // 1 second is enough for existence probe
+  if (error) return false;
+  return Boolean(data?.signedUrl);
+}
+
+/** Delete an object from the private bucket. */
+export async function removeObject(objectKey: string): Promise<void> {
+  const { error } = await supabase
+    .storage
+    .from(config.STORAGE_BUCKET)
+    .remove([objectKey]);
+  if (error) throw error;
+}

@@ -5,7 +5,7 @@ import { config } from './config';
 import authRouter from './routes/auth.routes';
 import getMeRouter from './routes/me.routes';
 import uploadFileRouter from './routes/uploadFile.routes';
-import listFilesRouter from './routes/files.routes';
+import filesRouter from './routes/files.routes';
 import sharesRouter from './routes/shares.routes';
 import publicUrlRouter from './routes/publiUrl.routes';
 
@@ -22,7 +22,7 @@ app.use('/auth', authRouter);
 app.use('/me', getMeRouter);
 
 app.use('/uploadFiles', uploadFileRouter);
-app.use('/files', listFilesRouter);
+app.use('/files', filesRouter);
 
 app.use('/shares', sharesRouter);
 app.use('/publicUrl', publicUrlRouter);

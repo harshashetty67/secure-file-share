@@ -5,4 +5,7 @@ export const CreateShareSchema = z.object({
   ttlMinutes: z.coerce.number().int().min(5).max(7200).optional(),
   maxDownloads: z.coerce.number().int().min(1).optional(),
 });
+
+export const ShareId = z.string().uuid();
+
 export type CreateShareInput = z.infer<typeof CreateShareSchema>;

@@ -35,10 +35,6 @@ export async function getShare(id: string) {
   return data;
 }
 
-/**
- * v1 best-effort increment; fine for low traffic.
- * Later you can switch to a Postgres RPC that does `download_count = download_count + 1` atomically.
- */
 export async function incrementDownloadCount(id: string) {
   const { data: current, error: erroMsg } = await supabase.from('shares').select('download_count').eq('id', id).single();
   if (erroMsg) {
@@ -49,4 +45,49 @@ export async function incrementDownloadCount(id: string) {
   if (erroMsg2) {
     throw erroMsg2;
   }
+}
+
+// Revoke the share owned by this user.
+export async function revokeShareOwned(shareId: string, ownerId: string) {
+  const { data, error } = await supabase.from('shares').update({ revoked: true })
+                          .eq('id', shareId)
+                          .eq('owner_id', ownerId)
+                          .select('id, revoked') 
+                          .maybeSingle();        
+
+  if (error) { 
+    throw error;
+  }
+
+  return data;
+}
+
+export async function listShares(ownerId: string, limit = 20, offset = 0) {
+  const { data, error } = await supabase
+    .from('shares')
+    .select('id, object_key, file_name, mime, size, expires_at, max_downloads, download_count, revoked, created_at')
+    .eq('owner_id', ownerId)
+    .order('created_at', { ascending: false })
+    .range(offset, offset + limit - 1);
+
+  if (error) 
+    throw error;
+  
+  return data ?? [];
+}
+
+// Bulk revoke all shares for a given objectKey owned by this user.
+export async function revokeSharesByObjectKey(ownerId: string, objectKey: string): Promise<number> {
+  const { data, error } = await supabase
+    .from('shares')
+    .update({ revoked: true })
+    .eq('owner_id', ownerId)
+    .eq('object_key', objectKey)
+    .neq('revoked', true)
+    .select('id');
+
+  if (error) 
+    throw error;
+
+  return data?.length ?? 0;
 }

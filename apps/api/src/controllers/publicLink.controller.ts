@@ -15,7 +15,8 @@ export async function getPublicShareUrlController(req: Request, res: Response) {
   
   try {
     share = await getShare(shareId);
-  } catch {
+  } 
+  catch {
     return res.status(404).json({ error: { message: ' Share Not found' } });
   }
 

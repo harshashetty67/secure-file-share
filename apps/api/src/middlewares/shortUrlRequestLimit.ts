@@ -9,8 +9,13 @@ import { config } from '../config';
 const ipRecords = new Map<string, number[]>();
 
 export function publicUrlRateLimit(req: Request, res: Response, next: NextFunction) {
-  const ip = req.ip || 'unknown';
+  const ip = (req.headers['cf-connecting-ip'] as string) || req.ip || 'unknown';
   const now = Date.now();
+  
+  // For logging
+  const rid = (req as any).rid;
+  const shareId = req.params.shareId;
+
   const windowMs = config.PUBLIC_RATE_LIMIT_WINDOW_MS;
   const allowedRequestLimit = config.PUBLIC_RATE_LIMIT_MAX;
 
@@ -19,6 +24,7 @@ export function publicUrlRateLimit(req: Request, res: Response, next: NextFuncti
   ipRecords.set(ip, recentRequestTimeRecords);
 
   if (recentRequestTimeRecords.length > allowedRequestLimit) {
+    console.log('[public-share]', { rid, shareId, event: 'rate_limited' });
     return res.status(429).json({ error: { message: 'Too many requests, try again later.' } });
   }
 

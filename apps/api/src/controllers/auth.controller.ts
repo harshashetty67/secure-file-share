@@ -16,8 +16,9 @@ export async function sendMagicLinkController(req: Request, res: Response) {
     } 
     catch (err) 
     {
-        // generic error message to avoid email enumeration
-        console.error('Some went wrong :', err);
+        res.send(500).json({
+            error: { message: 'Internal server error' }
+        });
     }
 
     return res.json({

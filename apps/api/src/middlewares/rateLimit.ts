@@ -1,7 +1,7 @@
 const ipMap = new Map(); // key: ip, val: [timestamps]
 
 export function rateLimitByIp(req, res, next) {
-    const userIpAddress = req.ip;
+    const userIpAddress = (req.headers['cf-connecting-ip'] as string) || req.ip;
     const currentDate = Date.now();
     const allowedTimeWindow = 5 * 60000; // 5 minutes
     const maxAllowedRequests = 3;

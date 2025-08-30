@@ -1,4 +1,3 @@
-// Encapsulates Supabase calls so controllers stay thin and testable.
 import { config } from '../config/index';
 import { createClient } from '@supabase/supabase-js';
 

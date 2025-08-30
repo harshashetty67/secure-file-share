@@ -1,9 +1,9 @@
 import { revokeSharesByObjectKey } from "../services/shares.service";
 import { listUserObjects, objectExists, removeObject } from "../services/storage.service";
 import { DeleteFileInput } from "../validators/files.schema";
-import type { Request, Response } from 'express';
+import { Request, Response } from 'express';
 
-export async function listFilesController(req, res) {
+export async function listFilesController(req: Request, res: Response) {
   const userId = req.user!.id;
   const limit = Math.min(Number(req.query.limit ?? 5), 20);
   const offset = Math.max(Number(req.query.offset ?? 0), 0);

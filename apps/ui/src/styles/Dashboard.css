@@ -1,0 +1,28 @@
+.dash {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.dash__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 24px 0;
+}
+
+.dash__spacer {
+    flex: 1;
+}
+
+.dash__user {
+    padding: 6px 10px;
+    background: rgba(15, 23, 42, 0.06);
+    border-radius: 999px;
+}
+
+.dash__empty {
+    padding: 36px 0;
+}
+

@@ -1,0 +1,74 @@
+.signin {
+  min-height: 100svh;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+
+/* Top bar row */
+.signin__topbar {
+  padding: 16px 0 0;
+}
+
+
+/* Centered form row */
+.signin__main {
+  display: grid;
+  place-items: center;
+  padding: 24px 0;
+}
+
+
+.signin__card {
+  width: min(480px, 92%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.92));
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 22px 20px;
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(10px);
+}
+
+.signin__card h2 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  display: flex;
+  justify-content: center;
+}
+
+.signin__form {
+  display: grid;
+  gap: 18px;
+  margin-top: 10px;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.signin__form input,
+.signin__form .btn {
+  width: 100%;
+}
+
+.signin__error {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #fecaca;
+}
+
+
+/* Slightly tighter input for compact look */
+.signin .input {
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.signin_tip {
+  font-size: 14px;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: center;
+}

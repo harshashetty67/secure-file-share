@@ -1,0 +1,54 @@
+.landing {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Center title and give outlined style */
+.landing__header {
+    padding: 28px 0 0;
+    display: flex;
+    justify-content: center;
+}
+
+.landing__header h1 {
+    margin: 0;
+    font-size: 50px;
+    letter-spacing: 2px;
+    text-align: center;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(15, 23, 42, 0.9);
+    text-shadow: 1px 0 0 #d8dff1, -1px 0 0 #aab8db, 0 1px 0 #9fb3e3, 0 -1px 0 #abbbe1, 1px 1px 0 #899ac1, -1px -1px 0 #7c8eb9, 1px -1px 0 #b9c6e3, -1px 1px 0 #a2b1d3;
+    font-family: cursive;
+}
+
+
+/* Center the info section vertically */
+.landing__main {
+    flex: 1;
+    display: grid;
+    place-content: center;
+    padding: 24px 0;
+}
+
+.landing__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    /* more breathing room to avoid overlap look */
+    max-width: 980px;
+}
+
+
+.landing__cta {
+    margin: 24px 0 0;
+    text-align: center;
+}
+
+
+@media (max-width: 900px) {
+    .landing__grid {
+        grid-template-columns: 1fr;
+    }
+}

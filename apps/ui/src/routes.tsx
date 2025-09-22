@@ -6,7 +6,7 @@ import React from "react";
 
 
 function Protected({ children }: { children: React.ReactNode }) {
-    const token = localStorage.getItem("sfs_access_token");
+    const token = sessionStorage.getItem("sfs_access_token");
     if (!token) {
         return <Landing />; // graceful fallback per your design
     }

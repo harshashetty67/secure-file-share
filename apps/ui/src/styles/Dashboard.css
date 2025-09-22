@@ -1,15 +1,23 @@
+/* 2-row grid: content grows, footer sticks to bottom */
 .dash {
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
+    min-height: 100svh;
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    /* content, footer */
 }
 
+/* content column within row 1 */
+.dash__main {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 0;
+}
 
 .dash__header {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 24px 0;
 }
 
 .dash__spacer {
@@ -22,7 +30,40 @@
     border-radius: 999px;
 }
 
-.dash__empty {
-    padding: 36px 0;
+.dash__tabs {
+    display: flex;
+    gap: 8px;
+    margin: 16px 0;
 }
 
+.dash__tab {
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--card-border);
+    background: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+}
+
+.dash__tab.is-active {
+    background: #fff;
+    box-shadow: var(--shadow-soft);
+}
+
+.dash__section {
+    display: grid;
+    gap: 16px;
+}
+
+.dash__sp {
+    height: 6px;
+}
+
+/* inline error chip */
+.dash__error {
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fde68a;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+}

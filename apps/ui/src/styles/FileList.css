@@ -1,0 +1,57 @@
+.fl {
+    display: grid;
+    gap: 10px;
+}
+
+.fl__row {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    background: #fff;
+    padding: 12px;
+}
+
+.fl__info {
+    display: grid;
+    gap: 2px;
+}
+
+.fl__name {
+    font-weight: 600;
+}
+
+.fl__meta {
+    color: var(--text-muted);
+}
+
+.fl__actions {
+    display: flex;
+    gap: 8px;
+    justify-self: end;
+}
+
+.fl__refresh {
+    margin-top: 6px;
+    text-align: right;
+}
+
+.fl__empty {
+    margin-top: 8px;
+}
+
+.fl__delete {
+    background: #dc2626 !important;
+    border-color: #dc2626 !important;
+}
+
+.fl__delete:hover {
+    background: #b91c1c !important;
+}
+
+.fl__delete:disabled {
+    opacity: 0.6 !important;
+    background: #dc2626 !important;
+}

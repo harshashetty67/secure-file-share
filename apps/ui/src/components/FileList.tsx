@@ -12,7 +12,8 @@ type Props = {
   files: FileItem[];
   onShare: (file: FileItem) => void;
   onRefresh?: () => void;
-  onDelete: (objectKey: string) => Promise<void>;
+  onDelete: (objectKey: string) => Promise<{ ok: boolean; revokedShares: number }>;
+
 };
 
 export default function FileList({ files, onShare, onRefresh, onDelete }: Props) {

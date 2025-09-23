@@ -2,7 +2,7 @@ import { type FormEvent, useState } from "react";
 import { isValidEmail } from "../lib/validators";
 import { useCooldown } from "../hooks/useCooldown";
 import Footer from "../components/Footer";
-import "../styles/SignIn.css";
+import "../styles/Signin.css";
 import { Link } from "react-router-dom";
 import { sendMagicLink } from "../lib/api";
 

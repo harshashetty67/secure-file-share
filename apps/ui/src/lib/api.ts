@@ -11,10 +11,16 @@ export type fileItem = {
 }
 
 export async function sendMagicLink(email: string): Promise<{ ok: boolean; message: string }> {
+  const redirectUrl = `${window.location.origin}/auth/callback`;
+  console.log('Sending magic link with redirect:', redirectUrl);
+  
   const res = await fetch(`${API_BASE}/auth/magic-link`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, redirectTo: `${window.location.origin}/auth/callback` }),
+    body: JSON.stringify({ 
+      email, 
+      redirectTo: redirectUrl
+    }),
   });
   if (!res.ok) {
     const text = await res.text();

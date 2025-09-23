@@ -9,6 +9,8 @@ export async function sendMagicLinkController(req: Request, res: Response) {
     };
 
     const finalRedirect = redirectTo ?? DEFAULT_EMAIL_REDIRECT;
+    
+    console.log('Sending magic link:', { email, finalRedirect });
 
     try 
     {
@@ -16,7 +18,8 @@ export async function sendMagicLinkController(req: Request, res: Response) {
     } 
     catch (err) 
     {
-        res.send(500).json({
+        console.error('Magic link error:', err);
+        return res.status(500).json({
             error: { message: 'Internal server error' }
         });
     }

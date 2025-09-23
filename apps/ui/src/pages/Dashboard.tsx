@@ -91,7 +91,10 @@ export default function Dashboard() {
               files={files}
               onShare={(f) => setCreatingFor({ id: f.id, name: f.name })}
               onRefresh={refreshFiles}
-              onDelete={deleteFile}
+              onDelete={async (objectKey) => {
+                const result = await deleteFile(objectKey);
+                return result;
+              }}
             />
           </div>
         )}

@@ -34,7 +34,7 @@ export default function ShareCreate({ open, onClose, fileId, fileName, createSha
         try {
             setStatus("creating");
             const res = await createShare({
-                fileId: fileId,
+                fileId: fileId ?? "",
                 ttlSeconds: ttl,
                 maxDownloads,
             });

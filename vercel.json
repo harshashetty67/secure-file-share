@@ -4,14 +4,13 @@
       "src": "apps/ui/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist",
-        "buildCommand": "cd apps/ui && npm run build"
+        "distDir": "dist"
       }
     }
   ],
   "rewrites": [
     {
-      "source": "/((?!api/.*).*)",
+      "source": "/(.*)",
       "destination": "/apps/ui/dist/index.html"
     }
   ],

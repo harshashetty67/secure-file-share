@@ -14,10 +14,18 @@ export default function AuthCallback() {
   const { accessToken, refreshToken, expiresIn, errorDesc } = useMemo(() => {
     const hash = new URLSearchParams(window.location.hash.replace(/^#/, ""));
     const qs = new URLSearchParams(window.location.search);
-    const accessToken = qs.get("token") || hash.get("access_token") || "";
-    const refreshToken = hash.get("refresh_token") || "";
-    const expiresIn = Number(hash.get("expires_in") || "3600");
-    const errorDesc = qs.get("error_description") || hash.get("error_description") || "";
+    
+    // Supabase magic links put tokens in URL fragments (hash)
+    const accessToken = hash.get("access_token") || qs.get("access_token") || "";
+    const refreshToken = hash.get("refresh_token") || qs.get("refresh_token") || "";
+    const expiresIn = Number(hash.get("expires_in") || qs.get("expires_in") || "3600");
+    const errorDesc = hash.get("error_description") || qs.get("error_description") || 
+                     hash.get("error") || qs.get("error") || "";
+    
+    console.log("URL hash:", window.location.hash);
+    console.log("URL search:", window.location.search);
+    console.log("Auth tokens:", { accessToken: !!accessToken, refreshToken: !!refreshToken, errorDesc });
+    
     return { accessToken, refreshToken, expiresIn, errorDesc };
   }, [params]);
 

@@ -22,7 +22,6 @@ export default function AuthCallback() {
     const errorDesc = hash.get("error_description") || qs.get("error_description") || 
                      hash.get("error") || qs.get("error") || "";
     
-    
     return { accessToken, refreshToken, expiresIn, errorDesc };
   }, [params]);
 

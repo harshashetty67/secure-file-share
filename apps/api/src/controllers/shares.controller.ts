@@ -70,7 +70,7 @@ export async function revokeShareController(req: Request, res: Response) {
 
 export async function listMySharesController(req: Request, res: Response) {
   const ownerId = (req as any).user.id as string;
-  const limit  = Math.min(Number(req.query.limit ?? 5), 20);
+  const limit  = Math.min(Number(req.query.limit ?? 20), 50);
   const offset = Math.max(Number(req.query.offset ?? 0), 0);
 
   const rows = await listShares(ownerId, limit, offset);
@@ -92,7 +92,7 @@ export async function listMySharesController(req: Request, res: Response) {
       maxDownloads: r.max_downloads ?? null,
       downloadCount: r.download_count,
       status,
-      publicUrl: `${process.env.SITE_URL}/d/${r.id}`,
+      publicUrl: `${config.SITE_URL}/d/${r.id}`,
     };
   });
 

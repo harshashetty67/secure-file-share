@@ -22,9 +22,6 @@ export default function AuthCallback() {
     const errorDesc = hash.get("error_description") || qs.get("error_description") || 
                      hash.get("error") || qs.get("error") || "";
     
-    console.log("URL hash:", window.location.hash);
-    console.log("URL search:", window.location.search);
-    console.log("Auth tokens:", { accessToken: !!accessToken, refreshToken: !!refreshToken, errorDesc });
     
     return { accessToken, refreshToken, expiresIn, errorDesc };
   }, [params]);

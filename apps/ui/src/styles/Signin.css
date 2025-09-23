@@ -8,7 +8,7 @@
 
 /* Top bar row */
 .signin__topbar {
-  padding: 16px 0 0;
+  padding: 35px 40px 0;
 }
 
 
@@ -71,4 +71,30 @@
   color: var(--text-muted);
   display: flex;
   justify-content: center;
+}
+
+.signin__back {
+  position: relative;
+}
+
+.signin__back::after {
+  content: 'Back';
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  margin-top: 8px;
+  background: #000;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+
+.signin__back:hover::after {
+  opacity: 1;
 }

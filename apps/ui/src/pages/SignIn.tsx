@@ -40,7 +40,7 @@ export default function SignIn() {
         <div className="signin">
             {/* Top bar row: back action */}
             <div className="signin__topbar container">
-                <Link to="/" className="btn btn--ghost" aria-label="Back to landing">← Back</Link>
+                <Link to="/" className="btn btn--ghost signin__back">←</Link>
             </div>
 
 

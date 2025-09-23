@@ -9,8 +9,6 @@ export async function sendMagicLinkController(req: Request, res: Response) {
     };
 
     const finalRedirect = redirectTo ?? DEFAULT_EMAIL_REDIRECT;
-    
-    console.log('Sending magic link:', { email, finalRedirect });
 
     try 
     {

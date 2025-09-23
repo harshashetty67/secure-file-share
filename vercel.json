@@ -4,7 +4,8 @@
       "src": "apps/ui/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist"
+        "distDir": "dist",
+        "buildCommand": "cd apps/ui && npm run build"
       }
     }
   ],

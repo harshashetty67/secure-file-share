@@ -7,7 +7,12 @@ const EnvSchema = z.object({
   PORT: z.coerce.number().default(8080),
 
   // CORS
-  WEB_APP_ORIGIN: z.string().url(),
+  WEB_APP_ORIGIN: z.string().refine(
+    (v) => v.split(',').map((s) => s.trim()).filter(Boolean).every((o) => {
+      try { new URL(o); return true; } catch { return false; }
+    }),
+    { message: 'WEB_APP_ORIGIN must be a URL or comma-separated list of URLs' },
+  ),
 
   // Supabase project details
   SUPABASE_URL: z.string().url(),

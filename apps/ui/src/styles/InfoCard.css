@@ -1,0 +1,21 @@
+.infoCard {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  padding: 20px 22px;
+  box-shadow: var(--shadow-sm);
+  animation: infoCardIn 500ms ease both;
+  transition: box-shadow 160ms ease, transform 160ms ease;
+}
+.infoCard:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.infoCard h3 {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  margin: 0 0 6px;
+}
+.infoCard p {
+  margin: 0;
+  color: var(--color-neutral-600);
+  font-size: 13px;
+  line-height: 1.55;
+}
+@keyframes infoCardIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }

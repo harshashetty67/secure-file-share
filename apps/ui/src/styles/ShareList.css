@@ -1,0 +1,77 @@
+.sl { display: flex; flex-direction: column; gap: 8px; }
+
+.sl__empty {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  padding: 28px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.sl__row {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--shadow-sm);
+  flex-wrap: wrap;
+}
+.sl__info { flex: 1; min-width: 220px; }
+.sl__name { font-size: 13px; font-weight: 600; }
+.sl__meta { font-size: 11px; color: var(--color-neutral-500); margin-top: 2px; }
+.sl__actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.sl__refresh { display: flex; justify-content: center; margin-top: 8px; }
+
+/* Public link modal (mirrors ShareCreate look) */
+.sl__modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(32, 30, 29, 0.4);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  z-index: 50;
+}
+.sl__modal {
+  width: 100%;
+  max-width: 480px;
+  background: var(--color-bg);
+  border-radius: 24px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+.sl__modal-header {
+  padding: 20px 24px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-divider);
+}
+.sl__modal-header h3 { font-family: var(--font-heading); font-size: 20px; margin: 0; }
+.sl__modal-close {
+  background: transparent; border: none; cursor: pointer;
+  color: var(--color-neutral-500); font-size: 16px;
+  width: 32px; height: 32px; border-radius: var(--radius-pill);
+}
+.sl__modal-close:hover { background: var(--color-accent-100); color: var(--color-accent-700); }
+.sl__modal-body { padding: 20px 24px; }
+.sl__modal-file { font-size: 14px; margin-bottom: 8px; }
+.sl__modal-warning {
+  background: var(--color-accent-100);
+  color: var(--color-accent-700);
+  padding: 10px 12px;
+  border-radius: var(--radius-icon);
+  margin: 0 0 14px;
+}
+.sl__modal-link { display: flex; gap: 8px; }
+.sl__modal-url { font-family: ui-monospace, Menlo, monospace; font-size: 12px; }
+.sl__modal-footer {
+  padding: 14px 24px 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  border-top: 1px solid var(--color-divider);
+}

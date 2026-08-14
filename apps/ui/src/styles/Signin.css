@@ -7,7 +7,7 @@
 
 /* Top bar */
 .signin__top {
-  height: 64px;
+  height: 72px;
   border-bottom: 1px solid var(--color-divider);
 }
 .signin__top-inner {
@@ -35,7 +35,7 @@
   display: grid; place-items: center;
   color: #fff;
 }
-.signin__brand-name { font-family: var(--font-heading); font-size: 17px; }
+.signin__brand-name { font-family: var(--font-heading); font-size: 19px; }
 
 /* Body */
 .signin__body {
@@ -56,19 +56,19 @@
 /* Left column */
 .signin__left h2 {
   font-family: var(--font-heading);
-  font-size: 40px;
+  font-size: 44px;
   line-height: 1.08;
-  margin: 0 0 12px;
+  margin: 0 0 14px;
 }
 .signin__left-lede {
-  font-size: 15px;
+  font-size: 16px;
   color: var(--color-neutral-600);
-  margin: 0 0 26px;
+  margin: 0 0 28px;
   line-height: 1.6;
-  max-width: 420px;
+  max-width: 460px;
 }
 .signin__checks { display: flex; flex-direction: column; gap: 12px; }
-.signin__check { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--color-text); }
+.signin__check { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--color-text); }
 .signin__check-ic {
   width: 22px; height: 22px;
   border-radius: var(--radius-pill);
@@ -95,8 +95,8 @@
   margin-bottom: 18px;
   box-shadow: 0 4px 14px rgba(198,113,57,.3);
 }
-.signin__card h3 { font-family: var(--font-heading); font-size: 22px; margin: 0 0 4px; }
-.signin__card-lede { font-size: 13px; color: var(--color-neutral-600); margin: 0 0 22px; }
+.signin__card h3 { font-family: var(--font-heading); font-size: 24px; margin: 0 0 4px; }
+.signin__card-lede { font-size: 14px; color: var(--color-neutral-600); margin: 0 0 22px; }
 
 .signin__form { display: flex; flex-direction: column; gap: 10px; }
 .signin__label {

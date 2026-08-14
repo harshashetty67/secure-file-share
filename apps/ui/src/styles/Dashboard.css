@@ -30,7 +30,7 @@
 }
 .dash__side-brand-name {
   font-family: var(--font-heading);
-  font-size: 18px;
+  font-size: 20px;
   letter-spacing: -0.005em;
 }
 
@@ -147,7 +147,7 @@
 }
 .dash__title {
   font-family: var(--font-heading);
-  font-size: 22px;
+  font-size: 25px;
   margin: 0;
   letter-spacing: -0.01em;
 }
@@ -211,7 +211,7 @@
 }
 .dash__stat-num {
   font-family: var(--font-body);
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 700;
   color: var(--color-text);
   line-height: 1;
@@ -222,7 +222,7 @@
 .dash__stat-storage-row { display: flex; align-items: baseline; gap: 5px; margin-bottom: 6px; }
 .dash__stat-storage-num {
   font-family: var(--font-body);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--color-text);
   letter-spacing: -0.01em;

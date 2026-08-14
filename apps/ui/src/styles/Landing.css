@@ -8,7 +8,7 @@
 
 /* ---- Nav ---- */
 .lnav {
-  height: 64px;
+  height: 72px;
   border-bottom: 1px solid var(--color-divider);
   background: var(--color-bg);
 }
@@ -26,9 +26,9 @@
   display: grid; place-items: center;
   color: #fff;
 }
-.lnav__name { font-family: var(--font-heading); font-size: 18px; }
-.lnav__links { display: flex; gap: 28px; }
-.lnav__link { font-size: 14px; color: var(--color-neutral-600); cursor: pointer; }
+.lnav__name { font-family: var(--font-heading); font-size: 20px; }
+.lnav__links { display: flex; gap: 32px; }
+.lnav__link { font-size: 15px; color: var(--color-neutral-600); cursor: pointer; }
 .lnav__link:hover { color: var(--color-accent); }
 
 /* ---- Hero ---- */
@@ -47,31 +47,31 @@
   background: var(--color-accent-100);
   color: var(--color-accent-700);
   border-radius: var(--radius-pill);
-  padding: 5px 14px;
-  font-size: 12px;
+  padding: 6px 16px;
+  font-size: 13px;
   font-weight: 600;
-  margin-bottom: 22px;
+  margin-bottom: 24px;
   animation: lSlideUp 600ms ease both;
 }
 .lhero__title {
   font-family: var(--font-heading);
-  font-size: 52px;
+  font-size: 58px;
   line-height: 1.04;
-  margin: 0 0 16px;
+  margin: 0 0 18px;
   color: var(--color-text);
   animation: lSlideUp 600ms 120ms ease both;
 }
 .lhero__lede {
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.65;
   color: var(--color-neutral-600);
-  margin: 0 0 30px;
-  max-width: 420px;
+  margin: 0 0 32px;
+  max-width: 460px;
   animation: lSlideUp 600ms 240ms ease both;
 }
 .lhero__cta { display: flex; gap: 12px; align-items: center; animation: lSlideUp 600ms 360ms ease both; }
 .lhero__cta .btn--lg { animation: ctaGlow 4s ease-in-out infinite; }
-.lhero__foot { font-size: 12px; color: var(--color-neutral-500); margin: 12px 0 0; animation: lSlideUp 600ms 480ms ease both; }
+.lhero__foot { font-size: 13px; color: var(--color-neutral-500); margin: 14px 0 0; animation: lSlideUp 600ms 480ms ease both; }
 
 /* ---- Decorative floating card area ---- */
 .lart {
@@ -164,7 +164,7 @@
   margin-top: 44px;
 }
 .lhow__eyebrow {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   color: var(--color-accent);
   text-transform: uppercase;
@@ -172,14 +172,14 @@
 }
 .lhow__title {
   font-family: var(--font-heading);
-  font-size: 30px;
-  margin: 6px 0 0;
+  font-size: 34px;
+  margin: 8px 0 0;
   color: var(--color-text);
 }
 .lhow__lede {
-  font-size: 14px;
+  font-size: 15px;
   color: var(--color-neutral-600);
-  max-width: 420px;
+  max-width: 460px;
   margin: 0;
 }
 .lhow__grid {
@@ -201,18 +201,18 @@
 .lhow__step:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
 .lhow__num {
   font-family: var(--font-heading);
-  font-size: 34px;
+  font-size: 38px;
   color: var(--color-accent);
   line-height: 1;
 }
 .lhow__step-title {
   font-family: var(--font-heading);
-  font-size: 18px;
+  font-size: 20px;
   color: var(--color-text);
   margin: 0;
 }
 .lhow__step-body {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--color-neutral-600);
   line-height: 1.55;
   margin: 0;
@@ -255,8 +255,8 @@
   flex-shrink: 0;
 }
 .lfeat__ic--sage { background: var(--color-accent-2-100); color: var(--color-accent-2-700); }
-.lfeat__title { font-size: 12px; font-weight: 600; color: var(--color-text); }
-.lfeat__sub { font-size: 11px; color: var(--color-neutral-500); }
+.lfeat__title { font-size: 13px; font-weight: 600; color: var(--color-text); }
+.lfeat__sub { font-size: 12px; color: var(--color-neutral-500); }
 
 /* ---- Animations ---- */
 @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }

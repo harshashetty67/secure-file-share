@@ -17,7 +17,6 @@ export default function Landing() {
           </Link>
           <div className="lnav__links">
             <span className="lnav__link">How it works</span>
-            <span className="lnav__link">Security</span>
           </div>
           <Link to="/signin" className="btn">
             Sign in <ArrowRight size={13} strokeWidth={2.75} />

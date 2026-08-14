@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from "react";
+import { UploadCloud, X } from "lucide-react";
 import "../styles/UploadPanel.css";
 
 type QueueItem = {
@@ -7,12 +8,12 @@ type QueueItem = {
   name: string;
   size: number;
   status: "queued" | "uploading" | "done" | "error";
-  progress: number; // 0–100
+  progress: number;
   error?: string;
 };
 
 type Props = {
-  onUploaded?: () => void; // called after ALL uploads finish (success or fail)
+  onUploaded?: () => void;
   uploadFn: (file: File, onProgress: (pct: number) => void) => Promise<void>;
 };
 
@@ -88,9 +89,12 @@ export default function UploadPanel({ uploadFn, onUploaded }: Props) {
         role="button"
         tabIndex={0}
       >
-        <div className="up__icon">⬆️</div>
-        <div className="up__text">
-          <strong>Drag & drop</strong> files here, or click to browse
+        <div className="up__icon"><UploadCloud size={22} strokeWidth={2.75} /></div>
+        <div>
+          <div className="up__text">
+            <strong>Drag &amp; drop</strong> files here, or click to browse
+          </div>
+          <div className="up__hint">All file types · Up to 100 MB per file</div>
         </div>
         <input
           ref={inputRef}
@@ -108,33 +112,30 @@ export default function UploadPanel({ uploadFn, onUploaded }: Props) {
               <div className={`up__row up__row--${it.status}`} key={it.id}>
                 <div className="up__meta">
                   <div className="up__name">{it.name}</div>
-                  <div className="up__size small">{formatBytes(it.size)}</div>
+                  <div className="up__size">{formatBytes(it.size)}</div>
                 </div>
-
-                <div className="up__status small">
+                <div className="up__status">
                   {it.status === "queued" && "Queued"}
                   {it.status === "uploading" && `${Math.round(it.progress)}%`}
                   {it.status === "done" && "Done"}
                   {it.status === "error" && <span className="up__err">{it.error}</span>}
                 </div>
-
+                {it.status === "queued" ? (
+                  <button className="up__remove" onClick={() => removeFromQueue(it.id)} aria-label="Remove">
+                    <X size={14} strokeWidth={2.75} />
+                  </button>
+                ) : <span />}
                 <div className="up__bar">
                   <div className="up__barFill" style={{ width: `${it.progress}%` }} />
                 </div>
-
-                {it.status === "queued" && (
-                  <button className="up__remove" onClick={() => removeFromQueue(it.id)} aria-label="Remove">
-                    ✕
-                  </button>
-                )}
               </div>
             ))}
           </div>
 
           <div className="up__actions">
-            <button className="btn btn--ghost" onClick={clearQueue} disabled={busy}>Clear</button>
+            <button className="btn btn--ghost btn--sm" onClick={clearQueue} disabled={busy}>Clear</button>
             <div className="up__spacer" />
-            <button className="btn" onClick={startUpload} disabled={busy || queuedCount === 0}>
+            <button className="btn btn--sm" onClick={startUpload} disabled={busy || queuedCount === 0}>
               {busy ? "Uploading…" : `Upload ${queuedCount} file${queuedCount > 1 ? "s" : ""}`}
             </button>
           </div>

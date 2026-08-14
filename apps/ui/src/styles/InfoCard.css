@@ -1,42 +1,21 @@
 .infoCard {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 16px;
-    padding: 20px;
-    width: 100%;
-    box-shadow: var(--shadow-soft);
-    will-change: transform, opacity;
-    transform: translateY(8px) scale(0.96);
-    opacity: 0;
-    animation: popIn 600ms cubic-bezier(.2, .8, .2, 1) forwards;
-    transition: transform 160ms ease;
-    position: relative;
-    z-index: 0;
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  padding: 20px 22px;
+  box-shadow: var(--shadow-sm);
+  animation: infoCardIn 500ms ease both;
+  transition: box-shadow 160ms ease, transform 160ms ease;
 }
-
-.infoCard:hover {
-    transform: translateY(0) scale(1.01);
-}
-
+.infoCard:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
 .infoCard h3 {
-    margin: 0 0 8px;
-    font-size: 18px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  margin: 0 0 6px;
 }
-
 .infoCard p {
-    margin: 0;
-    color: var(--text-muted);
+  margin: 0;
+  color: var(--color-neutral-600);
+  font-size: 13px;
+  line-height: 1.55;
 }
-
-
-@keyframes popIn {
-    from {
-        transform: translateY(12px) scale(0.94);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-    }
-}
+@keyframes infoCardIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }

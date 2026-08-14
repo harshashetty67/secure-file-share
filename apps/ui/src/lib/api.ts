@@ -1,5 +1,16 @@
 export const API_BASE = import.meta.env.VITE_API_BASE_URL as string;
 
+async function readError(res: Response): Promise<string> {
+  const text = await res.text().catch(() => "");
+  if (!text) return `Request failed (${res.status})`;
+  try {
+    const j = JSON.parse(text);
+    return j?.error?.message || j?.message || text;
+  } catch {
+    return text.length > 200 ? `Request failed (${res.status})` : text;
+  }
+}
+
 export type VerifyResponse = {
   accessToken: string;
   user: { id: string; email: string };
@@ -21,10 +32,7 @@ export async function sendMagicLink(email: string): Promise<{ ok: boolean; messa
       redirectTo: redirectUrl
     }),
   });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(text || "Failed to send magic link");
-  }
+  if (!res.ok) throw new Error(await readError(res));
   return res.json();
 }
 
@@ -54,7 +62,7 @@ export async function listFilesAll(limit = 20): Promise<Array<{ id: string; name
 
     while (offset !== null) {
       const res = await fetch(`${API_BASE}/files?limit=${limit}&offset=${offset}`, { headers: { ...authHeader() } });
-      if (!res.ok) throw new Error(await res.text());
+      if (!res.ok) throw new Error(await readError(res));
       const data: {
         items: Array<{ objectKey: string; fileName: string; size: number | null; lastModified: string | null }>;
         nextOffset: number | null;
@@ -89,8 +97,13 @@ export async function uploadFile(file: File, onProgress: (pct: number) => void):
       if (e.lengthComputable) onProgress((e.loaded / e.total) * 100);
     };
     xhr.onload = () => {
-      if (xhr.status >= 200 && xhr.status < 300) resolve();
-      else reject(new Error(xhr.responseText || `Upload failed (${xhr.status})`));
+      if (xhr.status >= 200 && xhr.status < 300) return resolve();
+      let msg = `Upload failed (${xhr.status})`;
+      try {
+        const j = JSON.parse(xhr.responseText);
+        msg = j?.error?.message || j?.message || msg;
+      } catch { /* keep default */ }
+      reject(new Error(msg));
     };
     xhr.onerror = () => reject(new Error("Network error"));
     const form = new FormData();
@@ -110,7 +123,7 @@ export async function createShare(input: { fileId: string; ttlSeconds: number; p
       maxDownloads: input.maxDownloads,
     }),
   });
-  if (!res.ok) throw new Error(await res.text());
+  if (!res.ok) throw new Error(await readError(res));
   const data = await res.json();
   return { 
     url: data.publicUrl, 
@@ -120,7 +133,7 @@ export async function createShare(input: { fileId: string; ttlSeconds: number; p
 
 export async function listShares(): Promise<Array<{ id: string; fileName: string; url: string; expiresAt: string; remainingDownloads?: number; status: string }>> {
   const res = await fetch(`${API_BASE}/shares`, { headers: { ...authHeader() } });
-  if (!res.ok) throw new Error(await res.text());
+  if (!res.ok) throw new Error(await readError(res));
   const data = await res.json();
   
   return data.items.map((item: any) => ({
@@ -135,7 +148,7 @@ export async function listShares(): Promise<Array<{ id: string; fileName: string
 
 export async function getPublicDownloadUrl(shareId: string): Promise<{ downloadUrl: string; fileName: string; expiresInSeconds: number }> {
   const res = await fetch(`${API_BASE}/publicUrl/shares/${shareId}`);
-  if (!res.ok) throw new Error(await res.text());
+  if (!res.ok) throw new Error(await readError(res));
   return res.json();
 }
 
@@ -144,7 +157,7 @@ export async function revokeShare(id: string): Promise<void> {
     method: "POST",
     headers: { ...authHeader() },
   });
-  if (!res.ok) throw new Error(await res.text());
+  if (!res.ok) throw new Error(await readError(res));
 }
 
 export async function deleteFile(objectKey: string): Promise<{ ok: boolean; revokedShares: number }> {
@@ -153,6 +166,6 @@ export async function deleteFile(objectKey: string): Promise<{ ok: boolean; revo
     headers: { "Content-Type": "application/json", ...authHeader() },
     body: JSON.stringify({ objectKey }),
   });
-  if (!res.ok) throw new Error(await res.text());
+  if (!res.ok) throw new Error(await readError(res));
   return res.json();
 }

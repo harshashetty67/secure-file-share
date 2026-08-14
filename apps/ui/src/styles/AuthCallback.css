@@ -1,46 +1,47 @@
 .authcb {
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
 }
-
 .authcb__wrap {
-    flex: 1;
-    display: grid;
-    place-items: center;
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 40px 0;
 }
-
-
 .authcb__card {
-    width: min(520px, 96%);
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 18px;
-    padding: 22px;
-    box-shadow: var(--shadow-soft);
-    text-align: center;
+  background: var(--color-surface);
+  border-radius: 24px;
+  padding: 36px 40px;
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  max-width: 420px;
+  width: 100%;
 }
-
+.authcb__card h2 {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  margin: 12px 0 6px;
+}
 .authcb__spinner {
-    width: 32px;
-    height: 32px;
-    margin: 8px auto 10px;
-    border-radius: 50%;
-    border: 3px solid rgba(15, 23, 42, 0.15);
-    border-top-color: var(--accent);
-    animation: spin 900ms linear infinite;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 3px solid var(--color-accent-100);
+  border-top-color: var(--color-accent);
+  margin: 0 auto;
+  animation: cbspin 900ms linear infinite;
 }
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
+.authcb__card--success .authcb__spinner {
+  border-color: var(--color-accent-2-100);
+  border-top-color: var(--color-accent-2-700);
+  animation: none;
+  background: var(--color-accent-2-100);
 }
-
-.authcb__card--success {
-    border-color: rgba(34, 197, 94, 0.35);
+.authcb__card--failed .authcb__spinner {
+  border-color: rgba(166, 58, 58, 0.2);
+  border-top-color: #a63a3a;
+  animation: none;
 }
-
-.authcb__card--failed {
-    border-color: rgba(239, 68, 68, 0.35);
-}
+@keyframes cbspin { to { transform: rotate(360deg); } }

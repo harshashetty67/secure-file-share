@@ -1,127 +1,78 @@
-.up {
-    display: grid;
-    gap: 12px;
-}
+.up { display: flex; flex-direction: column; gap: 14px; }
 
-/* Drop zone */
 .up__drop {
-    border: 2px dashed var(--card-border);
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(8px);
-    padding: 22px;
-    display: grid;
-    place-items: center;
-    text-align: center;
-    cursor: pointer;
-    transition: border-color 160ms ease, transform 160ms ease, background 160ms ease;
+  position: relative;
+  border: 2px dashed var(--color-accent-200);
+  background: var(--color-accent-100);
+  border-radius: 20px;
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  cursor: pointer;
+  transition: background 140ms ease, border-color 140ms ease;
 }
-
-.up__drop:hover {
-    transform: translateY(-1px);
+.up__drop:hover, .up__drop--drag {
+  background: rgba(198, 113, 57, 0.18);
+  border-color: var(--color-accent);
 }
-
-.up__drop--drag {
-    border-color: #93c5fd;
-    background: rgba(255, 255, 255, 0.9);
-}
-
-.up__input {
-    display: none;
-}
-
 .up__icon {
-    font-size: 28px;
+  width: 48px;
+  height: 48px;
+  background: var(--color-bg);
+  border-radius: var(--radius-pill);
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+  color: var(--color-accent);
+  font-size: 20px;
 }
+.up__text { font-size: 14px; font-weight: 600; color: var(--color-text); }
+.up__text strong { color: var(--color-accent); font-weight: 700; }
+.up__hint { font-size: 12px; color: var(--color-neutral-600); margin-top: 3px; }
+.up__input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
 
-.up__text {
-    color: var(--text-muted);
-}
-
-/* Queue + progress */
-.up__list {
-    display: grid;
-    gap: 10px;
-}
-
+.up__list { display: flex; flex-direction: column; gap: 8px; }
 .up__row {
-    position: relative;
-    display: grid;
-    gap: 8px;
-    grid-template-columns: 1fr auto;
-    grid-template-areas:
-        "meta status"
-        "bar  bar";
-    border: 1px solid var(--card-border);
-    border-radius: 12px;
-    background: #fff;
-    padding: 12px;
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-sm);
+  padding: 12px 16px;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  position: relative;
 }
-
-.up__row--done {
-    opacity: 0.9;
-}
-
-.up__row--error {
-    border-color: #fecaca;
-    background: #fff5f5;
-}
-
-.up__meta {
-    grid-area: meta;
-}
-
-.up__name {
-    font-weight: 600;
-}
-
-.up__size {
-    color: var(--text-muted);
-}
-
-.up__status {
-    grid-area: status;
-    align-self: center;
-}
-
-.up__err {
-    color: #b91c1c;
-}
-
+.up__row--done { border-left: 3px solid var(--color-accent-2); }
+.up__row--error { border-left: 3px solid #a63a3a; }
+.up__name { font-size: 13px; font-weight: 600; }
+.up__size { font-size: 11px; color: var(--color-neutral-500); }
+.up__status { font-size: 12px; color: var(--color-neutral-600); }
+.up__err { color: #a63a3a; }
 .up__bar {
-    grid-area: bar;
-    height: 8px;
-    background: rgba(15, 23, 42, 0.06);
-    border-radius: 999px;
-    overflow: hidden;
+  grid-column: 1 / -1;
+  height: 4px;
+  background: var(--color-neutral-200);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
 }
-
 .up__barFill {
-    height: 100%;
-    background: var(--accent);
-    transition: width 160ms linear;
+  height: 100%;
+  background: var(--color-accent);
+  border-radius: var(--radius-pill);
+  transition: width 180ms ease;
 }
-
 .up__remove {
-    position: absolute;
-    right: 8px;
-    top: 8px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    opacity: 0.6;
+  background: transparent;
+  border: none;
+  color: var(--color-neutral-500);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 4px 8px;
 }
+.up__remove:hover { color: var(--color-accent); }
 
-.up__remove:hover {
-    opacity: 1;
-}
-
-.up__actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.up__spacer {
-    flex: 1;
-}
+.up__actions { display: flex; align-items: center; gap: 10px; }
+.up__spacer { flex: 1; }

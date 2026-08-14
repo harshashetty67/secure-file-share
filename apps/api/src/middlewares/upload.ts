@@ -7,17 +7,21 @@ const ALLOWED_MIME = new Set([
   'image/jpeg',
   'image/webp',
   'text/plain',
+  'text/markdown',
   'application/zip',
 ]);
+
+const ALLOWED_EXTENSIONS = new Set(['.md', '.markdown']);
 
 // Multer storage in memory: OK for small files (≤ 2 MB)
 const storage = multer.memoryStorage();
 
 function fileFilter(_req: any, file: Express.Multer.File, cb: multer.FileFilterCallback) {
-  if (!ALLOWED_MIME.has(file.mimetype)) {
-    return cb(new Error(`Unsupported MIME type: ${file.mimetype}`));
+  const ext = file.originalname.toLowerCase().slice(file.originalname.lastIndexOf('.'));
+  const extOk = ALLOWED_EXTENSIONS.has(ext);
+  if (!ALLOWED_MIME.has(file.mimetype) && !extOk) {
+    return cb(new Error(`Unsupported file type: ${file.mimetype || ext || 'unknown'}`));
   }
-  
   cb(null, true);
 }
 

@@ -1,0 +1,21 @@
+{
+  "builds": [
+    {
+      "src": "apps/ui/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist",
+        "buildCommand": "cd apps/ui && npm run build"
+      }
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/apps/ui/dist/index.html"
+    }
+  ],
+  "env": {
+    "VITE_API_BASE_URL": "https://secure-file-share-eqja.onrender.com"
+  }
+}

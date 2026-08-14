@@ -16,7 +16,8 @@ export async function sendMagicLinkController(req: Request, res: Response) {
     } 
     catch (err) 
     {
-        res.send(500).json({
+        console.error('Magic link error:', err);
+        return res.status(500).json({
             error: { message: 'Internal server error' }
         });
     }

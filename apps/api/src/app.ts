@@ -27,7 +27,7 @@ app.use(cors({
 app.use(requestId);
 
 // Check server health status
-app.get('/health', (_, res) => res.json({ ok: true }));
+app.get('/health', (_: any, res: { json: (arg0: { ok: boolean; }) => any; }) => res.json({ ok: true }));
 
 app.use('/auth', authRouter);
 app.use('/me', getMeRouter);

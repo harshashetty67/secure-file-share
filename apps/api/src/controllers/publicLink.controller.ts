@@ -15,7 +15,6 @@ export async function getPublicShareUrlController(req: Request, res: Response) {
   const userIp = (req.headers['cf-connecting-ip'] as string) || req.ip;
 
   const rid = (req as any).rid;
-  console.log('[public-share]', { rid, shareId, ip: userIp, event: 'request' });
 
   try {
     share = await getShare(shareId);

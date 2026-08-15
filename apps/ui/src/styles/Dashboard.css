@@ -250,3 +250,33 @@
   .dash__stats { flex-wrap: wrap; }
   .dash__stat, .dash__stat--wide { flex: 1 1 40%; }
 }
+
+/* ---- File search + sort ---- */
+.dash__search-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.dash__search-wrap {
+  position: relative;
+  flex: 1;
+}
+.dash__search-ic {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.45;
+  pointer-events: none;
+}
+.dash__search {
+  width: 100%;
+  padding-left: 30px !important;
+}
+.dash__sort-btn {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}

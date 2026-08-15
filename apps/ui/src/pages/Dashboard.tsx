@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { toast } from "sonner";
 import {
-  FileText, Folder, Share2, Database, LogOut, User, UploadCloud,
+  FileText, Folder, Share2, Database, LogOut, User, UploadCloud, Search, ArrowUpDown,
 } from "lucide-react";
 import {
   createShare, listFilesAll, listShares, me, revokeShare,
@@ -14,7 +14,9 @@ import ShareList, { type ShareItem } from "../components/ShareList";
 import "../styles/Dashboard.css";
 
 type Tab = "files" | "shares";
+type SortKey = "date" | "name" | "size";
 const STORAGE_QUOTA_MB = 100;
+const STORAGE_WARN_PCT = 80;
 
 export default function Dashboard() {
   const [user, setUser] = useState<{ id: string; email: string } | null>(null);
@@ -26,6 +28,8 @@ export default function Dashboard() {
   const [sharesErr, setSharesErr] = useState<string | null>(null);
 
   const [creatingFor, setCreatingFor] = useState<{ id: string; name: string } | null>(null);
+  const [search, setSearch] = useState("");
+  const [sortKey, setSortKey] = useState<SortKey>("date");
   const hiddenUploadRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -63,7 +67,10 @@ export default function Dashboard() {
   useEffect(() => { if (tab === "shares") refreshShares(); }, [tab]);
 
   function signOut() {
-    sessionStorage.clear();
+    localStorage.removeItem("sfs_access_token");
+    localStorage.removeItem("sfs_refresh_token");
+    localStorage.removeItem("sfs_expires_at");
+    localStorage.removeItem("sfs_user");
     window.location.href = "/";
   }
 
@@ -74,6 +81,27 @@ export default function Dashboard() {
     const pct = Math.min(100, (totalMB / STORAGE_QUOTA_MB) * 100);
     return { fileCount: files.length, totalMB, activeShares, pct };
   }, [files, shares]);
+
+  const filteredFiles = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    const list = q ? files.filter((f) => f.name.toLowerCase().includes(q)) : [...files];
+    if (sortKey === "name") list.sort((a, b) => a.name.localeCompare(b.name));
+    else if (sortKey === "size") list.sort((a, b) => b.size - a.size);
+    else list.sort((a, b) => +new Date(b.uploadedAt) - +new Date(a.uploadedAt));
+    return list;
+  }, [files, search, sortKey]);
+
+  const cycleSort = useCallback(() => {
+    setSortKey((k) => k === "date" ? "name" : k === "name" ? "size" : "date");
+  }, []);
+
+  const sortLabel = sortKey === "date" ? "Date" : sortKey === "name" ? "Name" : "Size";
+
+  useEffect(() => {
+    if (stats.pct >= STORAGE_WARN_PCT) {
+      toast.warning(`Storage ${stats.pct.toFixed(0)}% full — consider deleting files.`, { id: "quota-warn" });
+    }
+  }, [stats.pct]);
 
   async function handleHiddenUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -200,8 +228,24 @@ export default function Dashboard() {
                 onUploaded={refreshFiles}
               />
 
+              <div className="dash__search-row">
+                <div className="dash__search-wrap">
+                  <Search size={13} strokeWidth={2.75} className="dash__search-ic" />
+                  <input
+                    className="input dash__search"
+                    placeholder="Search files…"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                </div>
+                <button className="btn btn--ghost btn--sm dash__sort-btn" onClick={cycleSort} title="Cycle sort order">
+                  <ArrowUpDown size={13} strokeWidth={2.75} />
+                  {sortLabel}
+                </button>
+              </div>
+
               <FileList
-                files={files}
+                files={filteredFiles}
                 onShare={(f) => setCreatingFor({ id: f.id, name: f.name })}
                 onRefresh={refreshFiles}
                 onDelete={async (objectKey) => deleteFile(objectKey)}

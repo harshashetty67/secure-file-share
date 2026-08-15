@@ -35,10 +35,10 @@ export default function AuthCallback() {
   }
 
   function clearAuth() {
-    sessionStorage.removeItem("sfs_access_token");
-    sessionStorage.removeItem("sfs_refresh_token");
-    sessionStorage.removeItem("sfs_expires_at");
-    sessionStorage.removeItem("sfs_user");
+    localStorage.removeItem("sfs_access_token");
+    localStorage.removeItem("sfs_refresh_token");
+    localStorage.removeItem("sfs_expires_at");
+    localStorage.removeItem("sfs_user");
   }
 
   useEffect(() => {
@@ -46,17 +46,17 @@ export default function AuthCallback() {
       try {
         if (!accessToken) throw new Error(errorDesc || "Missing token");
 
-        // Persist token(s) for this tab only
-        sessionStorage.setItem("sfs_access_token", accessToken);
-        if (refreshToken) sessionStorage.setItem("sfs_refresh_token", refreshToken);
+        // Persist token(s) across tabs and reloads
+        localStorage.setItem("sfs_access_token", accessToken);
+        if (refreshToken) localStorage.setItem("sfs_refresh_token", refreshToken);
         if (Number.isFinite(expiresIn)) {
-          sessionStorage.setItem("sfs_expires_at", String(Date.now() + expiresIn * 1000));
+          localStorage.setItem("sfs_expires_at", String(Date.now() + expiresIn * 1000));
         }
 
         // Validate with server (auth middleware verifies JWT)
         const meRes = await me();
         if (!meRes) throw new Error("Invalid or expired link. Please request a new one.");
-        sessionStorage.setItem("sfs_user", JSON.stringify(me));
+        localStorage.setItem("sfs_user", JSON.stringify(meRes));
 
         stripTokensFromURL();
         setStatus("success");

@@ -39,7 +39,7 @@ export async function sendMagicLink(email: string): Promise<{ ok: boolean; messa
 
 export async function me(): Promise<{ id: string; email: string } | null> {
   try {
-    const token = sessionStorage.getItem("sfs_access_token");
+    const token = localStorage.getItem("sfs_access_token");
     const headers: Record<string, string> = {};
     if (token) headers["Authorization"] = `Bearer ${token}`;
     const res = await fetch(`${API_BASE}/me`, { headers });
@@ -51,7 +51,7 @@ export async function me(): Promise<{ id: string; email: string } | null> {
 }
 
 function authHeader(): Record<string, string> {
-  const token = sessionStorage.getItem("sfs_access_token");
+  const token = localStorage.getItem("sfs_access_token");
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
@@ -148,7 +148,11 @@ export async function listShares(): Promise<Array<{ id: string; fileName: string
 
 export async function getPublicDownloadUrl(shareId: string): Promise<{ downloadUrl: string; fileName: string; expiresInSeconds: number }> {
   const res = await fetch(`${API_BASE}/publicUrl/shares/${shareId}`);
-  if (!res.ok) throw new Error(await readError(res));
+  if (!res.ok) {
+    const err = new Error(await readError(res)) as Error & { status: number };
+    err.status = res.status;
+    throw err;
+  }
   return res.json();
 }
 
